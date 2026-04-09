@@ -96,11 +96,11 @@ public class FindElementTest {
                 driver.findElement(By.cssSelector("[href$='work']"));
 
                 //composite css
-
                 //tag+class+pare
                 driver.findElement(By.cssSelector("a.navigation-link[href='/login']"));
                 //tag+class
                 driver.findElement(By.cssSelector("div.social-networks"));
+
                 // > one step down
                 driver.findElement(By.cssSelector(".logo>img"));
                 // space 2 or more steps down
@@ -111,9 +111,76 @@ public class FindElementTest {
                 System.out.println(feedback.getText());
 
             }
+            @Test
+            public void findElementByXpath(){
+        //       // some_tag[@attribute='value']
+       //        //*[@attribute='value']
+       //         //tag[2]
+       //         //tag[@attr='value1' and @attr2='value']
+       //         // tag[@attr='value1' or @attr2='value']
+                //         // tag[@attr='value1' not @attr2='value']
+                //        text(); contains();
+
+                // driver.findElement(By.cssSelector("h1"));
+                driver.findElement(By.xpath("//h1"));
+
+                //driver.findElement(By.cssSelector("#city"));
+                driver.findElement(By.xpath("//input[@id='city']"));
+
+                //driver.findElement(By.cssSelector(".telephone"));
+                driver.findElement(By.xpath("//*[@class='telephone']"));
+
+                //driver.findElement(By.cssSelector("[href='/search']"));
+                driver.findElement(By.xpath("//a[@href='/search']"));
+                //driver.findElement(By.cssSelector("[for='city']"));
+                driver.findElement(By.xpath("//*[@for='city']"));
+
+//                //contains -> *
+//                driver.findElement(By.cssSelector("[href*='car']"));
+                driver.findElement(By.xpath("//a[contains(@href,'car')]"));
+//                //start -> ^
+//                driver.findElement(By.cssSelector("[href^='/let']"));
+                driver.findElement(By.xpath("//a[starts-with(@href,'/let')]"));
+//                //end to -> $
+//                driver.findElement(By.cssSelector("[href$='work']"));
+
+                //text
+                //WebElement text = driver.findElement(By.xpath("//*[contains(text(),'This car exceeded my')]"));
+                WebElement text = driver.findElement(By.xpath("//p[contains(.,'This car exceeded my')]"));
+                System.out.println(text.getText());
+
+                // //tag+class+pare
+                //                driver.findElement(By.cssSelector("a.navigation-link[href='/login']"));
+                driver.findElement(By.xpath("//a[@class='navigation-link' and @href='/login']"));
+                //                //tag+class
+                //                driver.findElement(By.cssSelector("div.social-networks"));
+                driver.findElement(By.xpath("//div[@class='social-networks']"));
 
 
+                //// > one step down
+                //                driver.findElement(By.cssSelector(".logo>img"));
+                driver.findElement(By.xpath("//a[@class='logo']/img"));
+                //                // space 2 or more steps down
+                //                driver.findElement(By.cssSelector(".feedback-page .top-banner"));
+                driver.findElement(By.xpath("//div[@class='feedback-page']//*[@class='top-banner']"));
 
+            }
+//cssSelector -> div>a        xPath -> div/a   -one step
+//cssSelector -> div a        xPath -> div//a   one or more steps
+
+    @Test
+    public void findElementByXpathFamily(){
+        //parent
+        driver.findElement(By.xpath("//h1/parent::*"));
+        driver.findElement(By.xpath("//h1/parent::div"));
+        driver.findElement(By.xpath("//h1/.."));
+
+        //ancestor
+        driver.findElement(By.xpath("//h1/ancestor::*"));//html
+        driver.findElement(By.xpath("//h1/ancestor::div"));//two steps above
+        driver.findElement(By.xpath("//h1/ancestor::div[2]"));//two steps above
+
+    }
 
     @AfterMethod
     public void tearDown() {
